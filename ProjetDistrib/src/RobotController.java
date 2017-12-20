@@ -43,6 +43,16 @@ public class RobotController {
 		rightMotor.rotate(-angleMotor);
 	}
 	
+	public void rotateLeft () {
+		rightMotor.forward();
+		leftMotor.backward();
+	}
+	
+	public void rotateRight () {
+		rightMotor.backward();
+		leftMotor.forward();
+	}
+	
 	public void turnLeft() {
 		rightMotor.forward();
 		leftMotor.stop();
