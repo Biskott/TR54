@@ -3,8 +3,12 @@ import lejos.utility.Delay;
 
 public class BlueRobot extends Robot {
 	
+	private int yellowMarkerCounter = 0;
+	private boolean lastWasYellow = false;
+	
 	protected BlueRobot(boolean direction, float colorFuzzy, float whiteFuzzy, float blackFuzzy, float yellowFuzzy, float pinkFuzzy) {
 		super(direction, colorFuzzy, whiteFuzzy, blackFuzzy, yellowFuzzy, pinkFuzzy, 350);
+		initializeColor(sensor, "blue");
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -14,35 +18,47 @@ public class BlueRobot extends Robot {
 		sensor.getColor();
 		int i=0;
 		
-		initializeColor(sensor, "blue");
+		//boolean run = true;
 		
 		while(true) {
 			color = sensor.getColor();
 			if(isYellow(color)) {
 				LCD.drawString("Jaune  ", 0, 1);
 				changeDirection();
+				if(!lastWasYellow) yellowMarkerCounter++;
+				lastWasYellow = true;
+				if(yellowMarkerCounter == 2) {
+					changeDirection();
+					yellowMarkerCounter = 0;
+					givePriority();
+				}
 			}else if(isPink(color)) {
 				LCD.drawString("Rose  ", 0, 1);
 				control.forward();
 				i=0;
+				lastWasYellow = false;
 			}else if(isBlack(color)) {
 				LCD.drawString("Noir  ", 0, 1);
 				if(direction) control.turnLeft();
 				else control.turnRight();
 				i=0;
+				lastWasYellow = false;
 			}else if(isWhite(color)){
 				LCD.drawString("Blanc ", 0, 1);
 				if(direction) control.turnRight();
 				else control.turnLeft();
 				i=0;
+				lastWasYellow = false;
 			}else if(isColorToFollow(color)) {
 				LCD.drawString("Bleu  ", 0, 1);
 				control.forward();
 				i=0;
+				lastWasYellow = false;
 			}else {
 				LCD.drawString("Rien  ", 0, 1);
 				if(i>25) {
 					control.stop();
+					lastWasYellow = false;
 				}
 				i++;
 			}
@@ -52,4 +68,5 @@ public class BlueRobot extends Robot {
 			Delay.msDelay(20);
 		}
 	}
+	
 }

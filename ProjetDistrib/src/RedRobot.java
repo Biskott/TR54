@@ -8,22 +8,23 @@ public class RedRobot extends Robot {
 
 	protected RedRobot(boolean direction, float colorFuzzy, float whiteFuzzy, float blackFuzzy, float yellowFuzzy, float pinkFuzzy) {
 		super(direction, colorFuzzy, whiteFuzzy, blackFuzzy, yellowFuzzy, pinkFuzzy, 350);
+		initializeColor(sensor, "red");
 		// TODO Auto-generated constructor stub
 	}
 
 public void run() {
 		
 		float color[]= new float[3];
-		sensor.getColor();
 		int i=0;
 		
-		initializeColor(sensor, "red");
+		//boolean run = true;
 		
 		while(true) {
 			color = sensor.getColor();
 			if(isYellow(color)) {
 				LCD.drawString("Jaune  ", 0, 1);
 				changeDirection();
+				givePriority();
 				markerCounter = 0;
 				lastWasPink = false;
 			}else if(isPink(color)) {
@@ -55,6 +56,7 @@ public void run() {
 				LCD.drawString("Rien  ", 0, 1);
 				if(i>25) {
 					control.stop();
+					lastWasPink = false;
 				}
 				i++;
 			}

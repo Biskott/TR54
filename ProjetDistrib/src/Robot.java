@@ -1,11 +1,13 @@
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
+
 import lejos.utility.Delay;
 
 public abstract class Robot {
 	
 	protected RobotController control;
 	protected Sensor sensor;
+	protected Communication communication;
 
 	protected float colorTrack[], blackTrack[], whiteTrack[], yellowMark[], pinkMark[] = new float[3];
 	protected boolean direction;
@@ -28,11 +30,13 @@ public abstract class Robot {
 		
 		control = new RobotController(motorSpeed);
 		sensor = new Sensor();
+		communication = new Communication();
 	}
 	
 	public abstract void run();
 	
 	protected void initializeColor(Sensor s, String colorToFollow) {
+		colorTrack=s.getColor();
 		LCD.drawString("Put on the " + colorToFollow,1, 3);
 		LCD.drawString("track and press",1, 4);
 		LCD.drawString("any button",3, 5);
@@ -48,12 +52,12 @@ public abstract class Robot {
 		LCD.drawString("any button",2, 5);
 		Button.waitForAnyPress();
 		whiteTrack=s.getColor();
-		LCD.drawString("Put on the pink",1, 3);
+		LCD.drawString("Put on the pink ",1, 3);
 		LCD.drawString("marker and press",1, 4);
 		LCD.drawString("any button",3, 5);
 		Button.waitForAnyPress();
 		pinkMark=s.getColor();
-		LCD.drawString("Put on the yellow",1, 3);
+		LCD.drawString("Put on the yellow",0, 3);
 		LCD.drawString("marker and press",1, 4);
 		LCD.drawString("any button",3, 5);
 		Button.waitForAnyPress();
@@ -122,6 +126,12 @@ public abstract class Robot {
 		}
 		direction = !direction;
 		control.stop();
-		
+	}
+	
+	protected void givePriority() {
+		control.stop();
+		communication.sendInt(15);
+		Delay.msDelay(1000);
+		communication.waitData();
 	}
 }
