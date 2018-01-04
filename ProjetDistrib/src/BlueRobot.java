@@ -1,24 +1,39 @@
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 
+/**
+ * Classe BlueRobot
+ * Elle hérite de la classe Robot et permet la gestion des robots suivants le trajet bleu
+ */
 public class BlueRobot extends Robot {
-	
+
+	// Attribut permettant la gestion des marqueurs jaunes
 	private int yellowMarkerCounter = 0;
 	private boolean lastWasYellow = false;
-	
+
+	/**
+	 * Constructeur de la classe BlueRobot
+	 * @param direction : booléen indiquant le sens dans lequel doit tourner le robot
+	 * @param colorFuzzy : marge de détection de la couleur à suivre (bleu)
+	 * @param whiteFuzzy : marge de détection dela couleur blanche
+	 * @param blackFuzzy : marge de détection de la couleur noire
+	 * @param yellowFuzzy : marge de détection de la couleur jaune
+	 * @param pinkFuzzy : marge de détection de la couleur rose
+	 */
 	protected BlueRobot(boolean direction, float colorFuzzy, float whiteFuzzy, float blackFuzzy, float yellowFuzzy, float pinkFuzzy) {
 		super(direction, colorFuzzy, whiteFuzzy, blackFuzzy, yellowFuzzy, pinkFuzzy, 350);
-		initializeColor(sensor, "blue");
-		// TODO Auto-generated constructor stub
+		initializeColor("blue");
 	}
-	
+
+	/**
+	 * Fonction run
+	 * Elle permet la gestion du trajet du robot et la communication avec les autres robots
+	 */
 	public void run() {
 		
 		float color[]= new float[3];
 		sensor.getColor();
 		int i=0;
-		
-		//boolean run = true;
 		
 		while(true) {
 			color = sensor.getColor();
