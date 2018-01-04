@@ -14,14 +14,9 @@ public class BlueRobot extends Robot {
 	/**
 	 * Constructeur de la classe BlueRobot
 	 * @param direction : booléen indiquant le sens dans lequel doit tourner le robot
-	 * @param colorFuzzy : marge de détection de la couleur à suivre (bleu)
-	 * @param whiteFuzzy : marge de détection dela couleur blanche
-	 * @param blackFuzzy : marge de détection de la couleur noire
-	 * @param yellowFuzzy : marge de détection de la couleur jaune
-	 * @param pinkFuzzy : marge de détection de la couleur rose
 	 */
-	protected BlueRobot(boolean direction, float colorFuzzy, float whiteFuzzy, float blackFuzzy, float yellowFuzzy, float pinkFuzzy) {
-		super(direction, colorFuzzy, whiteFuzzy, blackFuzzy, yellowFuzzy, pinkFuzzy, 350);
+	protected BlueRobot(boolean direction) {
+		super(direction, 350);
 		initializeColor("blue");
 	}
 
@@ -32,12 +27,14 @@ public class BlueRobot extends Robot {
 	public void run() {
 		
 		float color[]= new float[3];
-		sensor.getColor();
+		//sensor.getColor();
 		int i=0;
 		
 		while(true) {
-			color = sensor.getColor();
-			if(isYellow(color)) {
+			
+			switch(getColorLibelle(sensor.getColor())) {
+			
+			case yellow:
 				LCD.drawString("Jaune  ", 0, 1);
 				changeDirection();
 				if(!lastWasYellow) yellowMarkerCounter++;
@@ -47,35 +44,41 @@ public class BlueRobot extends Robot {
 					yellowMarkerCounter = 0;
 					givePriority();
 				}
-			}else if(isPink(color)) {
+				break;
+			case pink:
 				LCD.drawString("Rose  ", 0, 1);
 				control.forward();
 				i=0;
 				lastWasYellow = false;
-			}else if(isBlack(color)) {
+				break;
+			case black:
 				LCD.drawString("Noir  ", 0, 1);
 				if(direction) control.turnLeft();
 				else control.turnRight();
 				i=0;
 				lastWasYellow = false;
-			}else if(isWhite(color)){
+				break;
+			case white:
 				LCD.drawString("Blanc ", 0, 1);
 				if(direction) control.turnRight();
 				else control.turnLeft();
 				i=0;
 				lastWasYellow = false;
-			}else if(isColorToFollow(color)) {
+				break;
+			case colorToFollow:
 				LCD.drawString("Bleu  ", 0, 1);
 				control.forward();
 				i=0;
 				lastWasYellow = false;
-			}else {
+				break;
+			default:
 				LCD.drawString("Rien  ", 0, 1);
 				if(i>25) {
 					control.stop();
 					lastWasYellow = false;
 				}
 				i++;
+				break;	
 			}
 			LCD.drawString(String.format("%.3f", color[0]), 0, 3);
 			LCD.drawString(String.format("%.3f", color[1]), 0, 4);

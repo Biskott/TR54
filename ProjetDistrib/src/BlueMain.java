@@ -1,9 +1,13 @@
 
 public class BlueMain {
 
+	/**
+	 * Fonction principale du robot de type bleu
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
-		BlueRobot blue = new BlueRobot(true, 0.3f, 0.2f, 0.3f, 0.2f, 0.15f);
+		BlueRobot blue = new BlueRobot(true);
 		blue.run();
 	}
 }
