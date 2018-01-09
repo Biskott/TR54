@@ -3,21 +3,18 @@ import lejos.hardware.motor.*;
 import lejos.hardware.port.MotorPort;
 
 /**
- * Classe RobotController
- * Elle permet la gestion des moteurs du robot pour réaliser les déplacements
+ * Handle robot's motors
  */
 public class RobotController {
 
-	// Attributs correspondants aux différents moteurs
 	private EV3LargeRegulatedMotor leftMotor;
 	private EV3LargeRegulatedMotor rightMotor;
 
-	// Attribut correspondant à la vitesse des moteurs
 	private float speed;
 
 	/**
-	 * Constructeur
-	 * @param s : Vitesse par défaut en deg/s
+	 * Constructor
+	 * @param s : default speed in deg/s
 	 */
 	public RobotController(float s ) {
 		speed = s;
@@ -28,8 +25,7 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction forward
-	 * Permet de faire avancer le robot
+	 * Move forward
 	 */
 	public void forward() {
 		leftMotor.forward();
@@ -37,9 +33,8 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction rotate
-	 * Permet de faire tourner le robot d'un certain angle
-	 * @param angle de rotation en radians
+	 * Rotate to a defined angle
+	 * @param angle rotation angle in radians
 	 */
 	public void rotate (float angle) {
 		int angleMotor = (int) (Math.toDegrees(angle)*2.1);
@@ -48,8 +43,7 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction rotateLeft
-	 * Elle permet de faire tourner (sur place) le robot sur la gauche (indéfiniment tant qu'il n'y a pas d'autres commandes)
+	 * Rotate left while any new command is send
 	 */
 	public void rotateLeft () {
 		rightMotor.forward();
@@ -57,8 +51,7 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction rotateRight
-	 * Elle permet de faire tourner (sur place) le robot sur la droite (indéfiniment tant qu'il n'y a pas d'autres commandes)
+	 * Rotate right while any new command is send
 	 */
 	public void rotateRight () {
 		rightMotor.backward();
@@ -66,8 +59,7 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction turnLeft
-	 * Elle permet de faire tourner le robot sur la gauche (indéfiniment tant qu'il n'y a pas d'autres commandes)
+	 * Turn left while any new command is send
 	 */
 	public void turnLeft() {
 		rightMotor.forward();
@@ -75,8 +67,7 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction turnRight
-	 * Elle permet de faire tourner le robot sur la droite (indéfiniment tant qu'il n'y a pas d'autres commandes)
+	 * Turn right while any new command is send
 	 */
 	public void turnRight() {
 		leftMotor.forward();
@@ -84,9 +75,8 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction setSpeed
-	 * Elle permet de fixer la vitesse du robot
-	 * @param s : Vitesse en deg/s
+	 * Set new robot speed
+	 * @param s new speed in deg/s
 	 */
 	public void setSpeed (float s) {
 		leftMotor.setSpeed(s);
@@ -94,8 +84,7 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction resetSpeed
-	 * Permet de remettre la vitesse des moteurs à la valeur par défaut
+	 * Reset the robot's speed to default speed
 	 */
 	public void resetSpeed() {
 		leftMotor.setSpeed(speed);
@@ -103,8 +92,7 @@ public class RobotController {
 	}
 
 	/**
-	 * Fonction stop
-	 * Permet d'arrêter le robot
+	 * Stop the robot
 	 */
 	public void stop() {
 		leftMotor.stop(true);

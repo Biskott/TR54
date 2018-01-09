@@ -1,6 +1,6 @@
 
 /**
- * Enum servant pour la gestion des couleurs détectées
+ * Enumeration of used colors
  *
  */
 public enum Color {

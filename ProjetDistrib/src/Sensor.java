@@ -7,21 +7,20 @@ import lejos.robotics.SampleProvider;
 import lejos.utility.Delay;
 
 /**
- * Classe Sensor
- * Elle permet la gestion des différents capteurs
+ * Handle robot's sensors
  */
 public class Sensor {
 
-	// Attributs utilisés pour la gestion du capteur de distance
+	// Distance sensor
 	private EV3UltrasonicSensor usSensor;
 	private SampleProvider distSample;
 
-	// Attributs utilisés pour la gestion du capteur de couleur
+	// Color sensos
 	private EV3ColorSensor colSensor;
 	private SensorMode rgbSensor;
 
 	/**
-	 * Constructeur
+	 * Constructor
 	 */
 	public Sensor() {
 
@@ -34,9 +33,8 @@ public class Sensor {
 	}
 
 	/**
-	 * Fonction getDistance
-	 * Retourne la distance à un objet détecter par le capteur de distance
-	 * @return la distance (en mètres)
+	 * Get distance in meters from ultrasonic sensor
+	 * @return distance in meters
 	 */
 	public float getDistance() {
 		float dist[] = new float[1];
@@ -45,11 +43,9 @@ public class Sensor {
 	}
 
 	/**
-	 * Fonction getDistance
-	 * Retourne la distance à un objet détecter par le capteur de distance
-	 * Cette fonction utilise un moyenne de la distance détectée avec les n dernières mesures
-	 * @param n : Nombre de valeurs utilisées pour réaliser la moyenne
-	 * @return distance moyenne (en mètres)
+	 * Get the average distance in meters from ultrasonic sensor
+	 * @param n number of samples to calculate the average distance
+	 * @return average distance in meters
 	 */
 	public float getDistance(int n) {
 		float moy = 0;
@@ -61,9 +57,8 @@ public class Sensor {
 	}
 
 	/**
-	 * Fonction getColor
-	 * Renvoie la couleur détectée par le capteur de couleur
-	 * @return tableau de flottant correspondant aux valeurs RGB
+	 * Get color from color sensor
+	 * @return float array of RGB value
 	 */
 	public float[] getColor() {
 		float col[] = new float[3];
