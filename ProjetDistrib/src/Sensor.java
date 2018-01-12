@@ -65,4 +65,26 @@ public class Sensor {
 		rgbSensor.fetchSample(col, 0);
 		return col;
 	}
+	
+	/**
+	 * Get average color's values from color sensor
+	 * @param n number of samples to calculate the average color
+	 * @return float array of average RGB value
+	 */
+	public float[] getColor(int n) {
+		
+		float[] moy = {0,0,0};
+		for(int i=0; i<n; i++) {
+			float[] value = getColor();
+			moy[0] += value[0];
+			moy[1] += value[1];
+			moy[2] += value[2];
+			Delay.msDelay(Math.min(5, 100/n));
+		}
+		moy[0]/=n;
+		moy[1]/=n;
+		moy[2]/=n;
+		
+		return moy;
+	}
 }
