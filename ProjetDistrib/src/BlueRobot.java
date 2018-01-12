@@ -27,12 +27,12 @@ public class BlueRobot extends Robot {
 	public void run() {
 		
 		float color[]= new float[3];
-		//sensor.getColor();
 		int i=0;
 		
 		while(true) {
 			
-			switch(getColorLibelle(sensor.getColor())) {
+			color = sensor.getColor(10);
+			switch(getColorLibelle(color)) {
 			
 			case yellow:
 				LCD.drawString("Jaune  ", 0, 1);
