@@ -31,7 +31,8 @@ public class RedRobot extends Robot {
 		
 		while(true) {
 			
-			switch(getColorLibelle(sensor.getColor())) {
+			color = sensor.getColor(10);
+			switch(getColorLibelle(color)) {
 			
 			case yellow:
 				LCD.drawString("Jaune  ", 0, 1);
